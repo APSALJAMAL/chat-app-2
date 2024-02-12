@@ -1,4 +1,3 @@
-import bcrypt from "bcryptjs";
 import Conversation from "../models/conversation.model.js";
 import Message from "../models/message.model.js";
 import { getReceiverSocketId, io } from "../socket/socket.js";
@@ -18,11 +17,11 @@ export const sendMessage = async (req, res) => {
 				participants: [senderId, receiverId],
 			});
 		}
-		const hashedmessage = await bcrypt.hash(message, salt);
+
 		const newMessage = new Message({
 			senderId,
 			receiverId,
-			message:hashedmessage,
+			message,
 		});
 
 		if (newMessage) {
